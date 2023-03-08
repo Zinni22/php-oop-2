@@ -1,5 +1,8 @@
 <?php
 require_once __DIR__.'/classes/product.php';
+require_once __DIR__.'/classes/food.php';
+require_once __DIR__.'/classes/toy.php';
+require_once __DIR__.'/classes/cuccia.php';
 
 // CATEGORIE
 $dogCategory = new Category(
@@ -12,9 +15,9 @@ $catCategory = new Category(
 );
 
 
-$products = [];
+$productsArray = [];
 // PRODOTTI GENERALI
-$products[] = new Product(
+$productsArray[] = new Product(
     'Lettiera per gatti',
     9.99,
     'https://arcaplanet.vtexassets.com/arquivos/ids/270557/perfect-lettiera-agglomerante-eco-vegetale-20-l.jpg?v=1764603099&quality=1&width=80&height=80',
@@ -23,9 +26,34 @@ $products[] = new Product(
 );
 
 // PRODOTTI => CIBO
-// PRODOTTI => GIOCHI
-// PRODOTTI => CUCCIA
+$productsArray[] = new Food(
+    'Crocchette',
+    12.99,
+    'https://www.gardenbedettishop.com/14348-large_default/crocchette-per-cani-prolife-sensitive-grain-free-sensitive-manzo-e-patate-adult-mediumlarge-nutrigenomic-10-kg.jpg',
+    25,
+    $dogCategory,
+    '12/05/2025',
+);
 
+// PRODOTTI => GIOCHI
+$productsArray[] = new Toy(
+    'Tiragraffi',
+    14.99,
+    'https://www.grupposanmarco.eu/image/cache/catalog/product-6856/tiragraffi-dune-blu-4-800x800.jpg',
+    30,
+    $catCategory,
+    'Compensato, Legno, <br> Moquette, Corda in sisal',
+);
+
+// PRODOTTI => CUCCIA
+$productsArray[] = new Cuccia(
+    'Cuccia',
+    79.99,
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3hq-tfZh0gULbaG4wCwLE0rYChzNSG1aQSw&usqp=CAU',
+    30,
+    $dogCategory,
+    '73 x 85 x 67.5 cm'
+);
 
 ?>
 
@@ -44,15 +72,17 @@ $products[] = new Product(
 
     <header>
         <h1>
-        PHP OOP 2
+        PHPet Shop
         </h1>
     </header>
 
     <main>
-        <div>
-            <?php
-                foreach($products as $index => $product){
-            ?>
+
+        <?php
+            foreach($productsArray as $index => $product){
+        ?>
+
+            <div class="product">
                 <h3>
                     <?php
                     echo $product->name;
@@ -66,22 +96,42 @@ $products[] = new Product(
                 " alt="">
                     
                 <p>
+                    <strong>Prezzo:</strong>
                     <?php
                     echo $product->price;
+                    ?> €
+                </p>
+
+                <p>
+                    <strong>Categoria:</strong>
+                    <?php
+                    echo $product->category->icon;
                     ?>
                 </p>
 
                 <p>
                     <?php
-                    echo $product->category->icon;
+                    echo $product->expiration;
+                    ?>
+                </p>
+
+                <p>
+                    <?php
+                    echo $product->material;
+                    ?>
+                </p>
+
+                <p>
+                    <?php
+                    echo $product->size;
                     ?>
                 </p>
                 
+            </div>
 
-            <?php
-                }
-            ?>
-        </div>
+        <?php
+            }
+        ?>
     </main>
     
 </body>
